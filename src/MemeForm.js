@@ -1,6 +1,18 @@
-import React from "react";
+import { React, useState } from "react";
+import memesData from "./memesData.js";
 
 function MemeForm() {
+  
+  const [memeImage, setMemeImage] = useState("http://i.imgflip.com/1bij.jpg");
+
+  function getMemeImage() {
+    const memesArray = memesData.data.memes;
+    const randomIndexFromMemesArray = Math.floor(
+      Math.random() * memesArray.length
+    );
+    setMemeImage(memesArray[randomIndexFromMemesArray].url);
+  }
+
   return (
     <main>
       <form class="w-full">
@@ -21,13 +33,20 @@ function MemeForm() {
             placeholder="and take my money"
           />
         </div>
-        <div className="btn mx-auto flex justify-center">
-       
-          <button className="text-center font-medium text-md  text-white p-4 m-3 rounded-md bg-gradient-to-br from-purple-800 to-purple-400">
-            Get a new meme image 🖼️
-          </button>
-        </div>
       </form>
+
+      <div className="mx-auto flex justify-center">
+        <button
+          onClick={getMemeImage}
+          className="text-center font-medium text-md  text-white p-4 m-3 rounded-md bg-gradient-to-br from-purple-800 to-purple-400"
+        >
+          Get a new meme image 🖼️
+        </button>
+      </div>
+
+      <div className="w-4/5 lg:w-1/2 p-4 pt flex mx-auto">
+        <img className="w-full" src={memeImage} alt="" />
+      </div>
     </main>
   );
 }
